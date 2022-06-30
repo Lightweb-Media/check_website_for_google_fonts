@@ -7,11 +7,10 @@ import sys
 import re
 
 def scan_website(domain):
-    
     try: 
-                r = requests.get('https://' + domain )
-                if (r.status_code == 200):
-                    
+                #check http because follow we can follow the redirect if https
+                r = requests.get('http://' + domain, allow_redirects=True)
+                if (r.status_code == 200):       
                     try:
                         soup = BeautifulSoup(r.content, "html.parser")
                         links = soup.findAll('link',{'href': re.compile(r'fonts.google')})
