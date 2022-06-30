@@ -15,7 +15,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 ## Usage
-python check_for_google_fonts.py <domainlist> <outputfile>
+python check_for_google_fonts.py [domainlist] [outputfile]
 ### Example:
 python check_for_google_fonts.py example.csv output.csv 
 
