@@ -1,6 +1,6 @@
 # Check Websites for google Fonts.
 python check_for_google_fonts.py example.csv output.csv
-Read a CSV file and scann for Links to fonts.google
+Read a CSV file and scan for Links to fonts.google
 
 ## Installation
 
@@ -16,7 +16,8 @@ pip install -r requirements.txt
 
 ## Usage
 python check_for_google_fonts.py [domainlist] [outputfile]
-### Example:
+### Example
 python check_for_google_fonts.py example.csv output.csv 
 
-<domainlist> is a list of domains without protocol like example.org 
+<domainlist> is a list of domains without protocol like example.org
+# To stripe out the protocol you can use https://www.clickminded.com/trim-urls-to-root-domain-standardise-urls-prefixes/
