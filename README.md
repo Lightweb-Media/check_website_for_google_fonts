@@ -20,4 +20,6 @@ python check_for_google_fonts.py [domainlist] [outputfile]
 python check_for_google_fonts.py example.csv output.csv 
 
 <domainlist> is a list of domains without protocol like example.org
-# To stripe out the protocol you can use https://www.clickminded.com/trim-urls-to-root-domain-standardise-urls-prefixes/
+
+To stripe out the protocol you can use 
+https://www.clickminded.com/trim-urls-to-root-domain-standardise-urls-prefixes/
