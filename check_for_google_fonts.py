@@ -6,6 +6,7 @@ import sys
 import re
 
 def scan_website(domain):
+    errors = []
     try: 
                 #check http because follow we can follow the redirect if https
                 r = requests.get('http://' + domain, allow_redirects=True)
@@ -25,7 +26,9 @@ def scan_website(domain):
                     except Exception as e:
                         print (e)
     except Exception as e:
-                print (e)
+        print (e)
+            
+
 
 
 
@@ -39,7 +42,7 @@ if __name__ == "__main__":
                 results = []
                 result = scan_website(row[0])
                 if result:
-                    results.append()
+                    results.append(result)
 
         csv_output_file = sys.argv[2]   
         with open(csv_output_file, 'w') as csvfile:
