@@ -35,11 +35,12 @@ if __name__ == "__main__":
         csv_file = sys.argv[1]
         with open(csv_file, 'r') as csvFile:
             reader = csv.reader(csvFile, delimiter=',', quotechar='|')
+            results = []
             for row in reader:
-                results = []
+                
                 result = scan_website(row[0])
                 if result:
-                    results.append()
+                    results.append(result)
 
         csv_output_file = sys.argv[2]   
         with open(csv_output_file, 'w') as csvfile:
