@@ -34,7 +34,7 @@ def scan_website(domain):
                                 csslink = mydomain_with_scheme + csslink
 
                             # complain about any links to external css
-                            if not csslink.startswith(mydomain_with_scheme + '/'):
+                            if csslink.startswith('http') and not csslink.startswith(mydomain_with_scheme + '/'):
                                 findings.append(str(x))
 
                         if (len(findings) > 0):
