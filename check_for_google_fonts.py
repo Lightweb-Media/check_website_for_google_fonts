@@ -24,6 +24,10 @@ def scan_website(domain):
                             findings.append(str(x))
 
                         csslinks = soup.findAll('link', {'type': 'text/css'})
+                        csslinks2 = soup.findAll('link', {'rel': 'stylesheet'})
+                        for x in csslinks2:
+                            if not x in csslinks:
+                                csslinks.append(x)
                         for x in csslinks:
                             csslink = x['href']
 
