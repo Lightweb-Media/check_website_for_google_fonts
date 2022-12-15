@@ -4,6 +4,7 @@ import csv
 import requests
 import sys
 import re
+from urllib.parse import urlparse
 
 REGEX_FONT_DOMAINS = "(fonts.(google|gstatic))|fast.fonts"
 
@@ -13,12 +14,28 @@ def scan_website(domain):
                 r = requests.get('http://' + domain, allow_redirects=True)
                 if (r.status_code == 200):
                     try:
+                        parsed_uri = urlparse(r.url)
+                        mydomain_with_scheme = f"{parsed_uri.scheme}://{parsed_uri.netloc}"
                         soup = BeautifulSoup(r.content, "html.parser")
 
                         findings = []
                         links = soup.findAll('link',{'href': re.compile(REGEX_FONT_DOMAINS)})
                         for x in links:
                             findings.append(str(x))
+
+                        csslinks = soup.findAll('link', {'type': 'text/css'})
+                        for x in csslinks:
+                            csslink = x['href']
+
+                            # get the full url
+                            if csslink.startswith('//'):
+                                csslink = 'https:' + csslink
+                            elif csslink.startswith('/'):
+                                csslink = mydomain_with_scheme + csslink
+
+                            # complain about any links to external css
+                            if not csslink.startswith(mydomain_with_scheme + '/'):
+                                findings.append(str(x))
 
                         if (len(findings) > 0):
                             result = {
