@@ -5,18 +5,22 @@ import requests
 import sys
 import re
 
+REGEX_FONT_DOMAINS = "(fonts.(google|gstatic))|fast.fonts"
+
 def scan_website(domain):
     try: 
                 #check http because follow we can follow the redirect if https
                 r = requests.get('http://' + domain, allow_redirects=True)
-                if (r.status_code == 200):       
+                if (r.status_code == 200):
                     try:
                         soup = BeautifulSoup(r.content, "html.parser")
-                        links = soup.findAll('link',{'href': re.compile(r'fonts.google')})
-                        findings =[]
+
+                        findings = []
+                        links = soup.findAll('link',{'href': re.compile(REGEX_FONT_DOMAINS)})
                         for x in links:
                             findings.append(str(x))
-                        if (len(links) > 0):
+
+                        if (len(findings) > 0):
                             result = {
                                 'url' : domain,
                                 'links' :  "|".join(findings)
