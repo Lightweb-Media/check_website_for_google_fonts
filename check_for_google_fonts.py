@@ -35,21 +35,28 @@ def scan_website(domain):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 1:
         csv_file = sys.argv[1]
         with open(csv_file, 'r') as csvFile:
             reader = csv.reader(csvFile, delimiter=',', quotechar='|')
             results = []
             for row in reader:
-                
                 result = scan_website(row[0])
                 if result:
                     results.append(result)
 
-        csv_output_file = sys.argv[2]   
+    if len(sys.argv) > 2:
+        # write to csv file
+        csv_output_file = sys.argv[2]
         with open(csv_output_file, 'w') as csvfile:
                 fieldnames = ['url', 'links']
                 writer = csv.DictWriter(csvfile, fieldnames)
                 for data in results:
                     writer.writerow(data)
+    else:
+        # write to output in readable form for humans
+        for data in results:
+            print(data['url'])
+            for s in data['links'].split('|'):
+                print("  " + s)
 
